@@ -1,0 +1,34 @@
+{% extends 'basis.html' %}
+
+{% block content %}
+    {% load static %}
+    <div class="goods">
+        {% for prod in all_prod %}
+        <a href="{% url 'product' prod.id %}" class="refer_prod">
+            {% if prod.image %}
+            <img src="{{ prod.image.url }}" alt="">
+            {% else %}
+            <img src="{% static 'app_grocery_shoping/pic/goods/none.png' %}" alt="">
+            {% endif %}
+            <div>
+                <div class="discr">
+                    <div>
+                        <h2>{{ prod.price|floatformat:2 }} $ / kg</h2>
+                        <p>{{ prod.name|capfirst }}</p>
+                    </div>
+                    <!-- <img src="{% static 'app_grocery_shoping/pic/goods/cart_prod.png' %}" alt=""> -->
+                </div>
+                <h5>Company: {{ prod.company|capfirst }}</h5>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block prods_name %}
+
+    {{ one_pr.category }}
+
+{% endblock %}
+
+{% block title %} {{ one_pr.category }} - Grocery Store {% endblock %}

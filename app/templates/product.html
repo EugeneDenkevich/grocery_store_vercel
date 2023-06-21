@@ -1,0 +1,41 @@
+{% extends 'basis.html' %}
+
+{% block content %}
+{% load static %}
+    <div class="goods" style="justify-content: center;">
+        <div style="flex: none; justify-content: space-between; width: 600px;" class="refer_prod">
+            {% if prodid.image %}
+            <img style="padding: 5px 10px" src="{{ prodid.image.url }}" alt="">
+            {% else %}
+            <img src="{% static 'app_grocery_shoping/pic/goods/none.png' %}" alt="">
+            {% endif %}
+            <div style="padding: 0px 20px;">
+                <div class="discr">
+                    <div>
+                        <h2>{{ prodid.price }} $ / kg</h2>
+                        <p>{{ prodid.name|capfirst }}</p>
+                    </div>
+                </div>
+                <h5>Company: {{ prodid.company }}</h5>
+                <form class="add_to_cart" action="{% url 'cart:cart_add' prodid.id %}" method="post">
+                    {{ cart_product_form}}
+                    {% csrf_token %}
+                    <input type="submit" value="Add to cart">
+                </form>
+            </div>
+            <!-- <img src="{% static 'app_grocery_shoping/pic/goods/cart_prod_individual.png' %}" alt=""> -->
+
+
+        </div>
+        
+    </div>
+    
+{% endblock %}}
+
+{% block prods_name %}
+
+    {{ one_pr.category }}
+
+{% endblock %}
+
+{% block title %} {{ prodid.name|capfirst }} - Grocery Store {% endblock %}

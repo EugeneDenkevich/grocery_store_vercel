@@ -1,0 +1,62 @@
+{% extends 'basis.html' %}
+
+{% block content %}
+{% load static %}
+{% if user.is_authenticated %}
+{% if ad_ad %}
+<div class="wrap_address_cart">
+
+    <img class="silhouette" src="{% static 'app_grocery_shoping/pic/silhouette.png' %}" alt="">
+
+    <div class="deliv_pointed_wrap">
+        <h1 class="deliv_pointed">You'r delivery address:</h1>
+
+        {% csrf_token %}
+        <div class="descr_deliver_wrap">
+            <div>
+                <p>Country:</p>{{ ad_ad.country }}
+            </div>
+            <div>
+                <p>City:</p>{{ ad_ad.city }}
+            </div>
+            <div>
+                <p>Address:</p>{{ ad_ad.address }}
+            </div>
+            <div>
+                <p>Phone:</p>{{ ad_ad.phone }}
+            </div>
+            <div>
+                <p>Comment:</p>{{ ad_ad.comment }}
+            </div>
+        </div>
+        <h1 class="deliv_pointed">Change it?</h1>
+        <a class="change" href="{% url 'del' %}">Yes</a>
+
+    </div>
+</div>
+{% else %}
+<div class="wrap_address_cart">
+    <img class="silhouette" src="{% static 'app_grocery_shoping/pic/silhouette.png' %}" alt="">
+    <div class="address_card">
+        <h1 class="head_address">Point your delivery address</h1>
+        <form class="enter_address" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ address_new.as_p }}
+            <button class="btn_add_address" type="submit">Add address</button>
+        </form>
+    </div>
+</div>
+{% if error %}
+<div style="text-align: right; color: rgb(131, 23, 23); font-size: large; font-weight: bolder;">
+    {{error }}</div>
+{% endif %}
+{% endif %}
+{% else %}
+<div class="wrap_address_cart">
+    <h1 class="caution">Please login to Grocery Store to have a posibility to point a delivery address</h1>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block title %} Address page - Grocery Store {% endblock %}

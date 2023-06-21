@@ -1,0 +1,62 @@
+{% extends 'basis.html' %}
+{% load static %}
+
+{% block title %} Cart - Grocery Store {% endblock %}
+
+{% block content %}
+<div class="cart_card_wrap">
+    <div class="cart_card">
+        <table class="cart_table">
+            <thead>
+                <tr class="tr_cart">
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Remove</th>
+                    <th>Price/kg</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                {% with product=item.product %}
+                <tr>
+                    <td>
+                        <a href="{{ product.get_absolute_url }}">
+                            <img class="img_cart_prod"
+                                src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}"
+                                alt="">
+                        </a>
+                    </td>
+                    <td>{{ product.name|capfirst }}</td>
+                    <td>
+                        <form class="update" action="{% url 'cart:cart_add' product.id %}" method="post">
+                            {{ item.update_quantity_form.quantity }}
+                            {{ item.update_quantity_form.update }}
+                            <input type="submit" value="Update">
+                            {% csrf_token %}
+                        </form>
+                    </td>
+                    <td>
+                        <a class="remove_item" href="{% url 'cart:cart_remove' product.id %}">Remove</a>
+                    </td>
+                    <td class="num">${{ item.price }}</td>
+                    <td class="num">${{ item.total_price }}</td>
+                </tr>
+                {% endwith %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="odrer_total">
+            <p>
+                Total: ${{ cart.get_total_price }}
+            </p>
+            <p>
+                <a href="#" class="button">Make an order</a>
+            </p>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

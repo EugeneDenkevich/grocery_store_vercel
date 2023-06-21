@@ -1,0 +1,22 @@
+{% extends 'basis.html' %}
+
+{% block content %}
+<!-- {% load static %} -->
+    <div class="description">
+        <img src="{% static 'app_grocery_shoping/pic/delivery_main.png' %}" alt="delivery_main" class="img_delivery_main">
+        <p><b>Welcome to Grocery Store!</b><br>We provides food delivery services and hope that you'll find the
+            product you're looking for.</p>
+    </div>
+    <hr>
+    <div class="description">
+        <p>Click on the Categry button and choose the necessary category.</p>
+        <img src="{% static 'app_grocery_shoping/pic/instruct_choice_category.png' %} " alt="instruction_category"
+            class="img_instruction_category">
+    </div>
+    <hr>
+    <div class="description">
+        <img src="{% static 'app_grocery_shoping/pic/instruct_delivery.png' %}" alt="instruction_category"
+            class="img_instruction_category">
+        <p>Click on the "Point adress" button and enter the adress you need for a successfull delivering.</p>
+    </div>
+{% endblock %}
